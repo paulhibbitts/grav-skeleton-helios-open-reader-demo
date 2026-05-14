@@ -54,7 +54,7 @@ Helios Open Reader provides a ready-built site for open educational content – 
 - **Case Study** – `[case-study]...[/case-study]` (red)
 - **Announcement** – `[announcement]...[/announcement]` (purple by default; configurable type)
 - **Project Brief** – `[project-brief]...[/project-brief]` (amber); frames the assignment or challenge prompt
-- **Feedback Requested** – `[feedback-requested]...[/feedback-requested]` (purple); flags content awaiting review – useful in student projects and draft OER alike
+- **Feedback Requested** – `[feedback-requested]...[/feedback-requested]` (purple); flags content awaiting review — useful in student projects and draft OER alike
 - **Process Note** – `[process-note]...[/process-note]` (blue); documents iterations, decisions, or pivots during a project
 - All callouts accept an optional `title="..."` parameter and support Markdown content
 - Five built-in GitHub-style callouts: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`
@@ -93,6 +93,7 @@ Append `?embedded=true` to any page URL to display only the page content – no 
 - Git Sync plugin included for syncing reader content with GitHub, Codeberg, or similar Git hosting
 - Automatic "Edit this Page" link via the Helios theme, defaulting to **View Page Markdown** for open access to reader content; optionally configurable to direct editing for contributors with repository access
 - OER attribution block – display a CC license statement in the footer, drawn from reader home page frontmatter
+- Plain text version (disabled by default) – optionally generate `/llms.txt` (structured index) and `/llms-full.txt` (full content) endpoints for open access to all reader content in a portable, format-neutral form; useful for ebook generation (e.g. Pandoc), search and indexing tools, and AI-compatible tools; a "Plain text version" footer link is included
 - Customize CSS and JavaScript via the bundled plugin assets
 - Print stylesheet with page break control, absolute link URLs displayed inline, and consistent page margins across browsers
 
@@ -122,8 +123,8 @@ All reader content lives within `user/pages/`. The skeleton ships with a reader 
 
 ```
 user/pages/
-├── 00.reader/              # Reader home page
-│   └── reader.md           # Reader title, subtitle, authors, edition, license, cover image
+├── 00.sections/              # Reader home page
+│   └── section-list.md           # Reader title, subtitle, authors, edition, license, cover image
 ├── 01.section-1/           # Section 1 (published by default)
 │   ├── section-page.md     # Section settings (section_number, description, icon, learning_objectives)
 │   ├── 01.section-one/     # Sub-page (also uses section-page.md)
@@ -156,7 +157,7 @@ To add a section, copy an existing section folder (e.g. `01.section-1/`) via FTP
 
 ## Reader Home Settings
 
-The `reader.md` frontmatter controls the reader identity and card layout on the home page. These fields can be set in the Admin Panel by opening the reader home page.
+The `section-list.md` frontmatter controls the reader identity and card layout on the home page. These fields can be set in the Admin Panel by opening the reader home page.
 
 | Field | Description |
 |-------|-------------|
@@ -179,7 +180,7 @@ The `reader.md` frontmatter controls the reader identity and card layout on the 
 | `card_image_layout` | Card image position: `side` or `top` |
 | `card_description_lines` | Maximum description lines per card (2, 3, or 0 for no limit) |
 
-Page content written in `reader.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:
+Page content written in `section-list.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:
 
 ```markdown
 This text appears above the section cards.
@@ -208,7 +209,7 @@ The `section-page.md` frontmatter controls each section's landing page and card 
 
 ### Reader Title
 
-The title displayed in the browser tab and header comes from the `title` field in `reader.md`. Edit it via **Admin → Pages → Reader Home**, or directly in `user/pages/00.reader/reader.md`.
+The title displayed in the browser tab and header comes from the `title` field in `section-list.md`. Edit it via **Admin → Pages → Reader Home**, or directly in `user/pages/00.sections/section-list.md`.
 
 ### Section Label
 
@@ -232,7 +233,7 @@ fr:
 
 When sections are grouped into parts using the `part-N-section-M` folder naming pattern, the part heading label (default: `Part`) can be customized via **Admin → Pages → Reader Home → Part Label**. Leave it empty to use the default. Examples: `Theme`, `Project`.
 
-To use custom titles for individual parts instead of the auto-generated "Part 1", "Part 2" labels, add a `parts` block to `reader.md` frontmatter:
+To use custom titles for individual parts instead of the auto-generated "Part 1", "Part 2" labels, add a `parts` block to `section-list.md` frontmatter:
 
 ```yaml
 parts:
@@ -241,6 +242,9 @@ parts:
   - id: part-2
     label: 'Applying Open Practices'
 ```
+
+> [!TIP]
+> After switching to the `part-N-section-M` folder naming pattern, update `versioning.labels` in `user/config/themes/helios.yaml` (or via **Admin → Themes → Helios → Versioning → Version Labels**) to add the new folder names as keys — this ensures section labels display correctly in the sidebar and browser tab title.
 
 ### Section Names
 
@@ -276,7 +280,7 @@ If you prefer not to write Markdown directly, the optional [Grav Premium Editor 
 Custom CSS, JavaScript, shortcodes, callout blocks, and Helios-inspired Admin Panel styling for the Helios Open Reader skeleton. If the Helios theme is not installed, the plugin automatically falls back to the Quark or Quark2 theme so the frontend site remains viewable, redirecting to the License Manager page in the Admin panel.
 
 ### Templates
-- **reader** – Reader home template displaying the reader header, resume reading strip, and section card grid
+- **section-list** – Reader home template displaying the reader header, resume reading strip, and section card grid
 - **section-page** – Section reading page with configurable section N header, optional Learning Objectives block from frontmatter, and main content
 - **default-toc** – Content page template with a right-column Table of Contents; set `template: default-toc` in any page's frontmatter to enable (requires the page-toc plugin, included)
 
@@ -305,7 +309,7 @@ All callouts accept an optional `title="..."` parameter and support Markdown con
 - [raw]`[announcement]...[/announcement]`[/raw] – Announcement notice (purple by default), supports Markdown
 - [raw]`[announcement title="..." type="..."]...[/announcement]`[/raw] – With optional custom title and type (`note`, `tip`, `important`, `warning`, `caution`)
 - [raw]`[project-brief]...[/project-brief]`[/raw] – Project Brief block (amber); frames the assignment or challenge prompt
-- [raw]`[feedback-requested]...[/feedback-requested]`[/raw] – Feedback Requested block (purple); flags content awaiting review – useful in student projects and draft OER alike
+- [raw]`[feedback-requested]...[/feedback-requested]`[/raw] – Feedback Requested block (purple); flags content awaiting review — useful in student projects and draft OER alike
 - [raw]`[process-note]...[/process-note]`[/raw] – Process Note block (blue); documents iterations, decisions, or pivots during a project
 - [raw]`[iframe url="..."]`[/raw] – Responsive iframe embed, 16:9 by default
 - [raw]`[googleslides url="..."]`[/raw] – Responsive Google Slides embed, 16:9 by default
@@ -334,8 +338,12 @@ The following settings are available in the Admin panel under **Plugins → Heli
 | Git Link Mode | View file | Whether the Git link opens the file for **viewing** (default, for open access) or **editing** (for contributors with repository access) |
 | Repository Host | [raw]`github.com`[/raw] | Repository hosting service for the Helios GitHub Integration ([raw]`github.com`[/raw] or [raw]`codeberg.org`[/raw]) |
 | H5P Content Embed Source URL | `https://h5p.org/h5p/embed/` | Base URL for H5P embeds via Content ID (used with [raw]`[h5p id="..."]`[/raw]) |
+| Enable Plain Text Version | Disabled | Generate `/llms.txt` (structured index) and `/llms-full.txt` (full content) endpoints containing all reader content in plain text |
+| Show Plain Text Version Link in Footer | Enabled | Show a link to `/llms-full.txt` in the page footer. Only applies when Enable Plain Text Version is enabled |
+| Plain Text Version Link Label | `Plain text version` | Label for the plain text version footer link |
+| Include Page Templates | [raw]`section-page`[/raw] | Only pages using these templates appear in the plain text version |
 
-> **Note:** The Helios-inspired Admin Panel colour scheme (zinc nav, accessible blue links, muted purple accents) is pre-configured in this skeleton.
+> **Note:** The Helios-inspired Admin Panel 1.7 colour scheme (zinc nav, accessible blue links, muted purple accents) is pre-configured in this skeleton. Also compatible with the new Admin 2 panel, where larger font sizes improve readability without applying Helios-inspired theming.
 
 ## Requirements
 
