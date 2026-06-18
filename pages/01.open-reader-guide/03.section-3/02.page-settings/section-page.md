@@ -5,7 +5,7 @@ description: 'Frontmatter fields for the reader home page and section pages.'
 
 ## Reader Home Settings
 
-The `reader.md` frontmatter controls the reader identity and card layout on the home page. These fields can be set in the Admin Panel by opening the reader home page.
+The `section-list.md` frontmatter controls the reader identity and card layout on the home page. These fields can be set in the Admin Panel by opening the reader home page.
 
 | Field | Description |
 |-------|-------------|
@@ -22,13 +22,13 @@ The `reader.md` frontmatter controls the reader identity and card layout on the 
 | `show_oer_attribution` | Display the CC license and attribution text in the footer of every page (`true` or `false`) |
 | `section_label` | Label used for sections throughout the reader (e.g. `Chapter`, `Unit`, `Module`). Leave empty to use the language default. |
 | `part_label` | Label used for part headings on the reader home page when using the `part-N-section-M` folder naming pattern (e.g. `Theme`, `Project`). Leave empty to use the default (`Part`). |
-| `parts` | Optional list of custom part titles – see the Folder Structure guide page |
+| `parts` | Optional list of custom part titles — see the Folder Structure guide page |
 | `cards_per_row` | Number of section cards per row (1–3) |
 | `card_icon` | Default icon for all cards (Tabler icon path) |
 | `card_image_layout` | Card image position: `side` or `top` |
 | `card_description_lines` | Maximum description lines per card (2, 3, or 0 for no limit) |
 
-Page content written in `reader.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:
+Page content written in `section-list.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:
 
 ```markdown
 This text appears above the section cards.
