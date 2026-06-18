@@ -10,22 +10,24 @@ The `section-list.md` frontmatter controls the reader identity and card layout o
 | Field | Description |
 |-------|-------------|
 | `title` | Reader title displayed in the header |
-| `subtitle` | Optional subtitle shown below the title in italics |
-| `authors` | Author name(s) shown below the subtitle |
-| `edition` | Optional edition line (e.g. `First Edition, 2025`) |
+| `subtitle` | Optional subtitle shown below the title in italics; used as the description on the publication card in the readers list |
+| `authors` | Author name(s) shown below the subtitle; also shown on the publication card in the readers list |
+| `edition` | Optional edition line (e.g. `First Edition, 2025`); also shown on the publication card in the readers list |
+| `last_updated` | Optional date displayed on the publication card in the readers list. Set via the **Last Updated** field in the Admin panel. |
 | `license` | CC license label shown as a badge (e.g. `CC BY 4.0`) |
 | `license_url` | URL for the license badge link |
 | `attribution_text` | Full attribution statement shown in the footer when OER attribution is enabled |
 | `cover_image` | Filename of a cover image uploaded to the reader home media folder |
+| `group` | Group label for organizing this publication under a heading on the readers list page (e.g. `Textbooks`, `Guides`). Publications without a group appear first. |
 | `start_button_text` | Label for the button linking to the first section (e.g. `Start Reading`, `Browse Projects`, `View Guides`). Leave empty to hide. |
 | `prev_next_position` | Where to display Prev/Next navigation on section pages: `both` (default), `top`, or `bottom` |
 | `show_oer_attribution` | Display the CC license and attribution text in the footer of every page (`true` or `false`) |
 | `section_label` | Label used for sections throughout the reader (e.g. `Chapter`, `Unit`, `Module`). Leave empty to use the language default. |
 | `part_label` | Label used for part headings on the reader home page when using the `part-N-section-M` folder naming pattern (e.g. `Theme`, `Project`). Leave empty to use the default (`Part`). |
 | `parts` | Optional list of custom part titles — see the Folder Structure guide page |
-| `cards_per_row` | Number of section cards per row (1–3) |
+| `cards_per_row` | Number of section cards per row (1–3); default is 1 |
 | `card_icon` | Default icon for all cards (Tabler icon path) |
-| `card_image_layout` | Card image position: `side` or `top` |
+| `card_image_layout` | Card image position: `side` or `top` (default: `side`) |
 | `card_description_lines` | Maximum description lines per card (2, 3, or 0 for no limit) |
 
 Page content written in `section-list.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:

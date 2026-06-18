@@ -62,7 +62,7 @@ Helios Open Reader provides a ready-built site for open educational content – 
 - Five built-in GitHub-style callouts: `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`
 
 ### Navigation & Reading Experience
-- **Save My Place** – records the last section page visited in localStorage; a dismissable "Continue reading" strip appears on the reader home page on return
+- **Save My Place** – records the last section page visited in localStorage; the readers list shows a dismissable "Last read" strip linking to the publication home, and the publication home shows a "Continue reading" strip linking directly to the last section read
 - **Reading progress indicator** – shows current page position (e.g. Page 4 of 22) with an accessible progress bar above the Prev/Next navigation on section pages
 - **Prev/Next navigation** – configurable position: top, bottom, or both
 - **TOC scroll spy** – active heading highlighted in the Table of Contents as the reader scrolls
@@ -157,17 +157,16 @@ Global settings for section label, Prev/Next position, and OER attribution are s
 | Field | Description |
 |-------|-------------|
 | `title` | Publications list title displayed in the header |
-| `subtitle` | Optional subtitle |
-| `cover_image` | Filename of a cover image |
+| `subtitle` | Optional collection tagline displayed below the title |
 | `prev_next_position` | Prev/Next position on section pages: `both` (default), `top`, or `bottom` |
 | `show_oer_attribution` | Show CC license footer on all pages |
 | `section_label` | Section label for all publications (e.g. `Chapter`). Overridable per publication. |
 | `license` | CC license label |
 | `license_url` | License URL |
 | `attribution_text` | Full attribution statement |
-| `cards_per_row` | Publication cards per row (1–3) |
+| `cards_per_row` | Publication cards per row (1–3); default is 2 |
 | `card_icon` | Default icon for reader cards |
-| `card_image_layout` | Card image position: `side` or `top` |
+| `card_image_layout` | Card image position: `side` or `top` (default: `top`) |
 | `card_description_lines` | Max description lines per card |
 
 Page content in `reader-list.md` appears above the reader cards by default. Use `===` as a delimiter to also show content below the cards.
@@ -179,18 +178,20 @@ These fields apply when `section-list.md` is used as the publication home (recom
 | Field | Description |
 |-------|-------------|
 | `title` | Publication title |
-| `subtitle` | Optional subtitle shown below the title |
+| `subtitle` | Optional subtitle shown below the title; also used as the description on the publication card in the readers list |
 | `cover_image` | Cover image filename for this publication |
-| `authors` | Author name(s) |
-| `edition` | Optional edition label |
+| `authors` | Author name(s); also shown on the publication card in the readers list |
+| `edition` | Optional edition label; also shown on the publication card in the readers list |
+| `last_updated` | Optional date displayed on the publication card in the readers list. Set via the **Last Updated** field in the Admin panel. |
+| `group` | Optional group label for organizing this publication under a heading on the readers list (e.g. `Textbooks`, `Guides`). Publications without a group appear first. |
 | `license` | CC license badge |
 | `start_button_text` | Start Reading button label. Leave empty to hide. |
 | `section_label` | Override the section label for this publication only |
 | `prev_next_position` | Override Prev/Next position for this publication |
 | `show_oer_attribution` | Override OER attribution display for this publication |
-| `cards_per_row` | Section cards per row (1–3) |
+| `cards_per_row` | Section cards per row (1–3); default is 1 |
 | `card_icon` | Default icon for section cards |
-| `card_image_layout` | Card image position: `side` or `top` |
+| `card_image_layout` | Card image position: `side` or `top` (default: `side`) |
 | `card_description_lines` | Max description lines per card |
 
 ### Showing and Hiding Publications and Sections
@@ -279,9 +280,9 @@ The `section-list.md` frontmatter controls the publication identity and card lay
 | `section_label` | Label used for sections throughout the reader (e.g. `Chapter`, `Unit`). Leave empty to use the language default (`Section`). |
 | `part_label` | Label used for part headings on the reader home page when using the `part-N-section-M` folder naming pattern (e.g. `Theme`, `Project`). Leave empty to use the default (`Part`). |
 | `parts` | Optional list of custom part titles (see Part Label below) |
-| `cards_per_row` | Number of section cards per row (1–3) |
+| `cards_per_row` | Number of section cards per row (1–3); default is 1 |
 | `card_icon` | Default icon for all cards (Tabler icon path) |
-| `card_image_layout` | Card image position: `side` or `top` |
+| `card_image_layout` | Card image position: `side` or `top` (default: `side`) |
 | `card_description_lines` | Maximum description lines per card (2, 3, or 0 for no limit) |
 
 Page content written in `section-list.md` appears above the cards by default. To also display content **below** the cards, add `===` on its own line as a delimiter:
